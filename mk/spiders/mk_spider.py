@@ -21,7 +21,7 @@ class mkSpider(Spider):
         print(resultUrl)
         print("*"*10)
 
-        for url in resultUrl[:1]:
+        for url in resultUrl:
             yield Request(url=url, callback=self.parse_result_page)
 
     ### parse detail links ###
@@ -29,7 +29,7 @@ class mkSpider(Spider):
 
         detailUrl = response.xpath('//div[@class="product-name"]/a/@href').extract()
 
-        for url in detailUrl[:11]:
+        for url in detailUrl:
             yield Request(url=url, callback=self.parse_detail_page)
 
     ### parse detail page information ###
