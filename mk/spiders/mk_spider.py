@@ -80,9 +80,20 @@ class mkSpider(Spider):
             item['sku'] = sku
             item['price'] = prc
             item['keycap'] = keycap
-            item['spec'] = spec
+            # item['spec'] = spec
             item['averating'] = averating
             item['nreviews'] = nreview
+            item['brand'] = spec['Brand']
+            item['model'] = spec['Model']
+            item['size'] = spec['Size']
+            item['dimension'] = spec['Dimensions']
+            item['weight'] = spec['Weight']
+            item['frcolor'] = spec['Frame Color']
+            item['logilayout'] = spec['Logical Layout']
+            item['physlayout'] = spec['Physical Layout']
+            item['led'] = spec['Primary LED Color']
+            item['interface'] = spec['Interface(s)']
+            item['rollover'] = spec['USB Key Rollover']
             yield item
 
         # item = MkItem()
