@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from scrapy import Spider
 from scrapy import Request
 from mk.items import MkItem
+from mk.items import MkReview
 import re
 
 class mkSpider(Spider):
@@ -37,6 +40,7 @@ class mkSpider(Spider):
         productimg = "".join(["https://mechanicalkeyboards.com/shop/", response.xpath('//a[@class="zoom"]/img/@src').extract_first()])
 
         switches = response.xpath('//td[@class="switch"]/a/text()').extract()
+        sku = response.xpath('//td[@class="switch"]/div/text()').extract()
         sprice = response.xpath('//td[@class="price"]/text()').extract()
 
         keycap = "".join(response.xpath('//ul[@class="acc_features"]/li//text()').extract()[:3])
@@ -57,6 +61,14 @@ class mkSpider(Spider):
         except TypeError:
             nreview = 0
 
+        if nreview != 0:
+            reviewers = response.xpath('//div[@class="review-metadata"]/div[@class="name"]/text()').extract()
+            reviewers = list(map(lambda x: re.sub('(\\t|\\n|\\r| - )','', x), reviewers))[::2]
+            reviewtime = response.xpath('//div[@class="review-metadata"]/div[@class="name"]/span/text()').extract()
+            reviewrating = response.xpath('//div[@class="review-metadata"]/div[@class="queue"]/img/@src').extract()
+            review = response.xpath('//div[@class="review-content"]/p').extract()
+            review = list(map(lambda x: re.sub('(\\t|\\n|\\r|<br>|<p>|</p>)','', x), review))
+
         print("*"*50)
         print(name)
         print(productimg)
@@ -65,10 +77,16 @@ class mkSpider(Spider):
         print(nreview)
         print("*"*10)
         print(switches)
+        print(sku)
         print(sprice)
         print("*"*10)
         print(keycap)
         print("*"*10)
         for key, value in spec.items():
-            print(key, value)
+            print(key, ":", value)
+        print("*"*10)
+        print(reviewers)
+        print(reviewtime)
+        print(reviewrating)
+        print(review)
         print("*"*50)
