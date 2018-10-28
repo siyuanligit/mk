@@ -72,22 +72,35 @@ class mkSpider(Spider):
             review = response.xpath('//div[@class="review-content"]/p').extract()
             review = list(map(lambda x: re.sub('(\\t|\\n|\\r|<br>|<p>|</p>)','', x), review))
 
-        item = MkItem()
-        item['name'] = name
-        item['img'] = productimg
-        item['switch'] = switches
-        item['sku'] = sku
-        item['price'] = sprice
-        item['keycap'] = keycap
-        item['spec'] = spec
-        item['averating'] = averating
-        item['nreviews'] = nreview
-        if nreview != 0:
-            item['user'] = reviewers
-            item['datetime'] = reviewtime
-            item['rating'] = reviewrating
-            item['review'] = review
-        yield item
+        for sw, sku, prc in zip(switches, sku, sprice):
+            item = MkItem()
+            item['name'] = name
+            item['img'] = productimg
+            item['switch'] = sw
+            item['sku'] = sku
+            item['price'] = prc
+            item['keycap'] = keycap
+            item['spec'] = spec
+            item['averating'] = averating
+            item['nreviews'] = nreview
+            yield item
+
+        # item = MkItem()
+        # item['name'] = name
+        # item['img'] = productimg
+        # item['switch'] = switches
+        # item['sku'] = sku
+        # item['price'] = sprice
+        # item['keycap'] = keycap
+        # item['spec'] = spec
+        # item['averating'] = averating
+        # item['nreviews'] = nreview
+        # if nreview != 0:
+        #     item['user'] = reviewers
+        #     item['datetime'] = reviewtime
+        #     item['rating'] = reviewrating
+        #     item['review'] = review
+        # yield item
 
         # if nreview != 0:
         #     for u, t, s, r in zip(reviewers, reviewtime, reviewrating, review):

@@ -5,7 +5,8 @@ from scrapy.exporters import CsvItemExporter
 class MkPipeline(object):
 
     def __init__(self):
-        self.filename = 'mkItems.csv'
+        # self.filename = 'mkItems.csv'
+        self.filename = 'mkItems2.csv'
 
     def open_spider(self, spider):
         self.csvfile = open(self.filename, 'wb')
