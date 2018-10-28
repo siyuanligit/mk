@@ -80,7 +80,6 @@ class mkSpider(Spider):
             item['sku'] = sku
             item['price'] = prc
             item['keycap'] = keycap
-            # item['spec'] = spec
             item['averating'] = averating
             item['nreviews'] = nreview
             item['brand'] = spec['Brand']
