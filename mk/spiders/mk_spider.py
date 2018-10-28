@@ -3,7 +3,6 @@
 from scrapy import Spider
 from scrapy import Request
 from mk.items import MkItem
-from mk.items import MkReview
 import re
 
 class mkSpider(Spider):
@@ -73,24 +72,39 @@ class mkSpider(Spider):
             review = response.xpath('//div[@class="review-content"]/p').extract()
             review = list(map(lambda x: re.sub('(\\t|\\n|\\r|<br>|<p>|</p>)','', x), review))
 
-        print("*"*50)
-        print(name)
-        print(productimg)
-        print("*"*10)
-        print(averating)
-        print(nreview)
-        print("*"*10)
-        print(switches)
-        print(sku)
-        print(sprice)
-        print("*"*10)
-        print(keycap)
-        print("*"*10)
-        for key, value in spec.items():
-            print(key, ":", value)
-        print("*"*10)
-        print(reviewers)
-        print(reviewtime)
-        print(reviewrating)
-        print(review)
-        print("*"*50)
+        item = MkItem()
+        item['name'] = name
+        item['img'] = productimg
+        item['switch'] = switches
+        item['sku'] = sku
+        item['price'] = sprice
+        item['keycap'] = keycap
+        item['spec'] = spec
+        item['averating'] = averating
+        item['nreviews'] = nreview
+        if nreview != 0:
+            item['user'] = reviewers
+            item['datetime'] = reviewtime
+            item['rating'] = reviewrating
+            item['review'] = review
+        yield item
+
+        # if nreview != 0:
+        #     for u, t, s, r in zip(reviewers, reviewtime, reviewrating, review):
+        #         review = MkReview()
+        #         review['name'] = name
+        #         review['user'] = u
+        #         review['datetime'] = t
+        #         review['rating'] = s
+        #         review['review'] = r
+        #         yield review
+
+        ### print outs ###
+        # print("*"*50)
+        # for k, v in item.items():
+        #     print(k, ":", v)
+        # for k, v in review.items():
+        #     print(k, ":", v)
+        # print("*"*50)
+        ### end print outs ###
+

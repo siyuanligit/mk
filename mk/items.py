@@ -6,14 +6,13 @@ import scrapy
 class MkItem(scrapy.Item):
     name = scrapy.Field()
     img = scrapy.Field()
-    price = scrapy.Field()
-    averating = scrapy.Field()
-    nreviews = scrapy.Field()
     switch = scrapy.Field()
+    sku = scrapy.Field()
+    price = scrapy.Field()
     keycap = scrapy.Field()
     spec = scrapy.Field()
-
-class MkReview(MkItem):
+    averating = scrapy.Field()
+    nreviews = scrapy.Field()
     user = scrapy.Field()
     datetime = scrapy.Field()
     rating = scrapy.Field()
