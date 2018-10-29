@@ -95,23 +95,6 @@ class mkSpider(Spider):
             item['rollover'] = spec['USB Key Rollover']
             yield item
 
-        # item = MkItem()
-        # item['name'] = name
-        # item['img'] = productimg
-        # item['switch'] = switches
-        # item['sku'] = sku
-        # item['price'] = sprice
-        # item['keycap'] = keycap
-        # item['spec'] = spec
-        # item['averating'] = averating
-        # item['nreviews'] = nreview
-        # if nreview != 0:
-        #     item['user'] = reviewers
-        #     item['datetime'] = reviewtime
-        #     item['rating'] = reviewrating
-        #     item['review'] = review
-        # yield item
-
         # if nreview != 0:
         #     for u, t, s, r in zip(reviewers, reviewtime, reviewrating, review):
         #         review = MkReview()
@@ -121,13 +104,4 @@ class mkSpider(Spider):
         #         review['rating'] = s
         #         review['review'] = r
         #         yield review
-
-        ### print outs ###
-        # print("*"*50)
-        # for k, v in item.items():
-        #     print(k, ":", v)
-        # for k, v in review.items():
-        #     print(k, ":", v)
-        # print("*"*50)
-        ### end print outs ###
 
