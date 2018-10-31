@@ -4,10 +4,10 @@ setwd("C:/Users/Derek/Google Drive/bootcamp/Project2/mk")
 ### dependencies
 library(readr)
 library(tidyverse)
-library(recommenderlab)
+# library(recommenderlab)
 
 ### load data
-mkItems2 = read_csv("mkItems2.csv")
+# mkItems2 = read_csv("mkItems2.csv")
 
 mkItems2 = read_csv("mkItems2.csv") %>% 
     mutate(price = as.numeric(gsub("[$]", "", price)),
@@ -258,8 +258,9 @@ mkItems2 %>%
 mkItems2 %>%
     filter(grepl('(Black|Red|Brown|Silver|Blue|Linear|Click)', switch)) %>% 
     filter(size == "Tenkeyless")
+
 mkItems2 %>% 
-    select(led) %>% 
+    select(print) %>% 
     distinct() %>% 
     View()
 
