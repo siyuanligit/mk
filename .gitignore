@@ -1,2 +1,5 @@
 **/__pycache__
 **/httpcache
+.Rproj.user
+.Rhistory
+mk.Rproj
