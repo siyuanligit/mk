@@ -110,7 +110,17 @@ mkItems2 %>%
     filter(n > 1) %>% 
     ggplot(aes(x = reorder(switch, n), y = n, fill = switchBrand)) + 
     geom_bar(stat = "identity") +
-    coord_flip()
+    geom_text(aes(label = n),
+              hjust = -0.2,
+              size = 4) +
+    coord_flip() +
+    labs(x = "", y = "") +
+    theme(axis.text.y = element_text(size = 9),
+          axis.text.x = element_blank(),
+          axis.ticks = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank())
 
 # most offered switch type
 mkItems2 %>% 
@@ -236,16 +246,3 @@ mkItems2 %>%
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           panel.background = element_blank())
-
-mkItems2 %>% 
-    select(-switch, -sku, -nreviews, -averating, -dimension, -img) %>% 
-    distinct(name, .keep_all = TRUE)
-
-
-grep("\\w+(?=\\s+legends)", "Beige Pad Printed ABS with White legends", value = TRUE, perl = TRUE)
-regmatches("Beige Pad Printed ABS with White legends", regexpr("\\w+(?=\\s+legends)", "Beige Pad Printed ABS with White legends", perl = TRUE))
-
-mkItems2$legend = regmatches(mkItems2$keycap, regexpr("\\w+(?=\\s+legends)", mkItems2$keycap, perl = TRUE))
-
-
-
