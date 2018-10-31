@@ -51,7 +51,7 @@ While keyboards using no lighting or white lighting has the highest average pric
 
 And while keyboards using blue lighting has the highest overall rating, keyboards using pink lighting has the lowest overall rating.
 
-Using the information on hand, I made a shiny webApp for picking a mechanical keyboard. Link is in my github.
+Using the information on hand, I made a [shiny webApp](https://siyuanli.shinyapps.io/mkPicker/) for picking a mechanical keyboard. 
 
 ### Future works
 
