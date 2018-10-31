@@ -41,7 +41,7 @@ mkItems2 = mkItems2 %>%
 min(mkItems2$price)
 max(mkItems2$price)
 
-mkItems2 %>% select(logilayout, physlayout) %>% distinct()
+mkItems2 %>% select(brand, model) %>% distinct()
 
 save(mkItems2, file = "mkItem.rdata")
 
@@ -201,7 +201,15 @@ mkItems2 %>%
               vjust = 0.4, 
               size = 12) +
     coord_flip() +
-    scale_fill_manual(values = c("#3300FF", "red", "#666666", "#FF33CC", "#33FF33", "#CCCCCC"))
+    scale_fill_manual(values = c("#3300FF", "red", "#666666", "#FF33CC", "#33FF33", "#CCCCCC")) +
+    guides(fill=FALSE) +
+    labs(x = "", y = "") +
+    theme(axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 16),
+          axis.ticks = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank())
 
 mkItems2 %>% 
     distinct(name, .keep_all = TRUE) %>% 
@@ -219,7 +227,15 @@ mkItems2 %>%
               vjust = 0.4, 
               size = 12) +
     coord_flip() +
-    scale_fill_manual(values = c("#3300FF", "red", "#666666", "#FF33CC", "#33FF33", "#CCCCCC"))
+    scale_fill_manual(values = c("#3300FF", "red", "#666666", "#FF33CC", "#33FF33", "#CCCCCC")) +
+    guides(fill=FALSE) +
+    labs(x = "", y = "") +
+    theme(axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 16),
+          axis.ticks = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank())
 
 mkItems2 %>% 
     select(-switch, -sku, -nreviews, -averating, -dimension, -img) %>% 
