@@ -105,6 +105,11 @@ server <- function(input, output) {
         print(input$noise)
         print(input$kbcolor)
         print(input$backlit)
+        print(input$pickerTable_rows_selected)
+    })
+    
+    observeEvent(input$pickerTable_rows_selected, {
+        print(input$pickerTable_rows_selected)
     })
     
     ans = eventReactive(input$submit, {
@@ -175,15 +180,21 @@ server <- function(input, output) {
         }
         
         q5 %>%
-            select(name, switch, price, averating) %>% 
-            filter(averating != "")
+            select(name, switch, price, averating, img, led, nreviews) %>% 
+            filter(averating != "") %>% 
+            arrange(desc(nreviews))
     })
     
     picLink = reactive({
-        ans() %>% 
-            left_join(mkItems2, by=c("name", "switch", "price")) %>% 
-            arrange(desc(nreviews)) %>% 
-            head(1)
+        if (nrow(ans()) != 0) {
+            if (!is.null(input$pickerTable_rows_selected)) {
+                ans() %>% 
+                    filter(row_number() == input$pickerTable_rows_selected)
+            } else {
+                ans() %>% 
+                    filter(row_number() == 1)
+            }
+        }
     })
     
     output$productImage = renderText({
@@ -194,7 +205,7 @@ server <- function(input, output) {
         if (nrow(picLink()) == 0) {
             paste0('<h3>Please widen your search!</h3>')
         } else {
-            paste0('<h4>Your top pick:</h4>',
+            paste0('<h4>Your pick:</h4>',
                    '<h4>', picLink() %>% select(name) %>% pull(), '</h4>',
                    '<p>- Switch: ', picLink() %>% select(switch) %>% pull(), "</p>",
                    '<p>- Price: $', picLink() %>% select(price) %>% pull(), "</p>",
@@ -204,9 +215,9 @@ server <- function(input, output) {
 
     output$pickerTable = renderDataTable({
         if (nrow(ans()) != 0) {
-            ans()
+            ans() %>% select(-img, -led, -nreviews)
         }
-    }, options = list(order = list(4, "desc"), pageLength = 10), selection = 'single')
+    }, options = list(pageLength = 10), selection = 'single')
     
     output$rgbfun = renderText({
         if (nrow(ans()) != 0) {
