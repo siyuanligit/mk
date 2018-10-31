@@ -14,3 +14,16 @@ h2, h3, h4{
 .content {
     font-family: 'Roboto', sans-serif;
 }
+
+img {
+    max-width: 250px;
+}
+
+#productImage {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rgbfun {
+    max-hight: 50px;
+}

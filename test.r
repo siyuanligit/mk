@@ -4,38 +4,40 @@ setwd("C:/Users/Derek/Google Drive/bootcamp/Project2/mk")
 ### dependencies
 library(readr)
 library(tidyverse)
-library(plotly)
 library(recommenderlab)
 
 ### load data
 mkItems2 = read_csv("mkItems2.csv")
 
-mkItems2 = mkItems2 %>% 
+mkItems2 = read_csv("mkItems2.csv") %>% 
     mutate(price = as.numeric(gsub("[$]", "", price)),
-           keyprint = case_when(
-               grepl('(Dye Sub PBT)', keycap)==TRUE ~ "Dye-Sub PBT",
-               grepl('(Dye Sub ABS)', keycap)==TRUE ~ "Dye-Sub ABS",
-               grepl('(Laser Printed ABS)', keycap)==TRUE ~ "Laser-Printed ABS",
-               grepl('(Double Shot ABS)', keycap)==TRUE ~ "Double-Shot ABS",
-               grepl('(Double Shot PBT)', keycap)==TRUE ~ "Double-Shot PBT",
-               grepl('(Pad Printed ABS)', keycap)==TRUE ~ "Pad-Printed ABS",
-               grepl('(Pad Printed PBT)', keycap)==TRUE ~ "Pad-Printed PBT",
-               grepl('(Laser Engraved PBT)', keycap)==TRUE ~ "Laser-Engraved PBT",
-               grepl('(Laser Engraved ABS)', keycap)==TRUE ~ "Laser-Engraved ABS",
-               grepl('(UV Printed ABS)', keycap)==TRUE ~ "UV-Printed ABS",
-               grepl('(Laser Etched ABS)', keycap)==TRUE ~ "Laser-Etched ABS",
-               grepl('(Laser Printed PBT)', keycap)==TRUE ~ "Laser-Printed PBT",
-               grepl('(Blank PBT)', keycap)==TRUE ~ "Blank PBT",
-               grepl('(Blank ABS)', keycap)==TRUE ~ "Blank ABS")) %>% 
+           keyprint = case_when(grepl('(Dye Sub PBT)', keycap)==TRUE ~ "Dye-Sub PBT",
+                                grepl('(Dye Sub ABS)', keycap)==TRUE ~ "Dye-Sub ABS",
+                                grepl('(Laser Printed ABS)', keycap)==TRUE ~ "Laser-Printed ABS",
+                                grepl('(Double Shot ABS)', keycap)==TRUE ~ "Double-Shot ABS",
+                                grepl('(Double Shot PBT)', keycap)==TRUE ~ "Double-Shot PBT",
+                                grepl('(Pad Printed ABS)', keycap)==TRUE ~ "Pad-Printed ABS",
+                                grepl('(Pad Printed PBT)', keycap)==TRUE ~ "Pad-Printed PBT",
+                                grepl('(Laser Engraved PBT)', keycap)==TRUE ~ "Laser-Engraved PBT",
+                                grepl('(Laser Engraved ABS)', keycap)==TRUE ~ "Laser-Engraved ABS",
+                                grepl('(UV Printed ABS)', keycap)==TRUE ~ "UV-Printed ABS",
+                                grepl('(Laser Etched ABS)', keycap)==TRUE ~ "Laser-Etched ABS",
+                                grepl('(Laser Printed PBT)', keycap)==TRUE ~ "Laser-Printed PBT",
+                                grepl('(Blank PBT)', keycap)==TRUE ~ "Blank PBT",
+                                grepl('(Blank ABS)', keycap)==TRUE ~ "Blank ABS")) %>% 
     separate(keycap, into = c("d1", "keycap"), sep = '(: )') %>% 
     separate(keycap, into = c("keycap", "legend"), sep = " with ") %>%
     filter(!is.na(legend)) %>% 
-    mutate(legend = gsub("( legends| legend)", "", legend)) %>% 
+    mutate(legend = gsub("( legends| legend)", "", legend),
+           color = case_when(grepl('(Multi)', keycap)==TRUE ~ "Multi",
+                             grepl('(White)', keycap)==TRUE ~ "White",
+                             grepl('(Black)', keycap)==TRUE ~ "Black",
+                             TRUE ~ "Other")) %>% 
     separate(keyprint, into = c("print", "material"), sep = " ") %>% 
     select(-d1, -logilayout, -physlayout, -keycap) %>% 
     select(name, brand, model, switch, sku, 
-           price, material, legend, print, frcolor, 
-           rollover, led, interface, dimension, weight, 
+           price, material, legend, print, frcolor, color,
+           rollover, led, interface, dimension, weight, size,
            averating, nreviews, img)
 
 min(mkItems2$price)
@@ -246,3 +248,21 @@ mkItems2 %>%
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           panel.background = element_blank())
+
+mkItems2 %>% 
+    select(brand, model, switch) %>% 
+    filter(grepl('Black|Red', switch))
+mkItems2 %>% 
+    select(size) %>% 
+    filter(size == "Tenkeyless")
+mkItems2 %>%
+    filter(grepl('(Black|Red|Brown|Silver|Blue|Linear|Click)', switch)) %>% 
+    filter(size == "Tenkeyless")
+mkItems2 %>% 
+    select(led) %>% 
+    distinct() %>% 
+    View()
+
+
+mkItems2 %>% select(name, switch, price, averating) %>% arrange(desc(averating)) %>% 
+    left_join(mkItems2, by=c("name", "switch", "price"))
