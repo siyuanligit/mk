@@ -232,7 +232,7 @@ mkItems2 %>%
     filter(NReviews > 5) %>% 
     ggplot(aes(x = reorder(led, aveRating), y = aveRating, fill = led)) +
     geom_col() +
-    geom_text(aes(label = round(aveRating, 1)), 
+    geom_text(aes(label = paste0("$", round(avePrice, 0))), 
               colour = "white", 
               fontface = "bold", 
               hjust = 1.2, 
@@ -264,6 +264,92 @@ mkItems2 %>%
     distinct() %>% 
     View()
 
+
+
+mkItems2 %>% 
+    distinct(name, .keep_all = TRUE) %>% 
+    group_by(material, print) %>% 
+    summarise(avePrice = mean(price, na.rm = TRUE)) %>% 
+    ggplot(aes(x = reorder(print, avePrice), y = avePrice, fill = material)) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label = paste0("$", round(avePrice, 0))), 
+              colour = "white", 
+              fontface = "bold", 
+              hjust = 1.2, 
+              size = 8) +
+    coord_flip() +
+    facet_grid(.~material) +
+    labs(x = "", y = "") +
+    theme(axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 16),
+          axis.ticks = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank())
+
+mkItems2 %>% 
+    distinct(name, .keep_all = TRUE) %>% 
+    group_by(material) %>% 
+    summarise(avePrice = mean(price, na.rm = TRUE)) %>% 
+    ggplot(aes(x = reorder(material, avePrice), y = avePrice, fill = material)) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label = paste0("$", round(avePrice, 0))), 
+              colour = "white", 
+              fontface = "bold", 
+              hjust = 1.2, 
+              size = 8) +
+    coord_flip() +
+    guides(fill=FALSE) +
+    labs(x = "", y = "") +
+    theme(axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 16),
+          axis.ticks = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank())
+
+mkItems2 %>% 
+    distinct(name, .keep_all = TRUE) %>% 
+    group_by(print) %>% 
+    summarise(avePrice = mean(price, na.rm = TRUE)) %>% 
+    ggplot(aes(x = reorder(print, avePrice), y = avePrice)) +
+    geom_col(position = "dodge", fill = "#66CC99") +
+    geom_text(aes(label = paste0("$", round(avePrice, 0))), 
+              colour = "white", 
+              fontface = "bold", 
+              hjust = 1.2, 
+              size = 8) +
+    coord_flip() +
+    guides(fill=FALSE) +
+    labs(x = "", y = "") +
+    theme(axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 16),
+          axis.ticks = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank())
+
+mkItems2 %>% 
+    distinct(name, .keep_all = TRUE) %>% 
+    group_by(rollover) %>% 
+    summarise(avePrice = mean(price, na.rm = TRUE)) %>% 
+    ggplot(aes(x = reorder(rollover, avePrice), y = avePrice, fill = rollover)) +
+    geom_col(position = "dodge") +
+    geom_text(aes(label = paste0("$", round(avePrice, 0))), 
+              colour = "white", 
+              fontface = "bold", 
+              hjust = 1.2, 
+              size = 8) +
+    coord_flip() +
+    guides(fill=FALSE) +
+    labs(x = "", y = "") +
+    theme(axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 16),
+          axis.ticks = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank())
+    
 
 mkItems2 %>% select(name, switch, price, averating) %>% arrange(desc(averating)) %>% 
     left_join(mkItems2, by=c("name", "switch", "price"))
