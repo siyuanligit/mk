@@ -11,21 +11,22 @@ I chose [mechanicalkeyboards.com](https://mechanicalkeyboards.com/shop/) as the 
 “Mechanicalkeyboards.com” has a simple and efficient architecture. Since it does not use REST API to retrieve the product listings, I decided to use Scrapy in Python to scrape the website.
 I collected 797 listings from the online shop, with their:
 
-- product name
-- brand
-- model
-- mechanical switch type
-- price
-- id
-- keycap material
-- keycap legend color
-- keycap print method
-- frame color
-- interface
-- dimension
-- weight
-- average rating
-- number of reviews
+- Id
+- Product name
+- Brand
+- Model
+- Mechanical switch type
+- Price
+- Keycap material
+- Keycap legend color
+- Keycap printing method
+- Frame color
+- Interface
+- Dimension
+- Weight
+- Average rating
+- Number of reviews
+
 
 ### Some interesting finds
 
