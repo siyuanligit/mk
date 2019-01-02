@@ -2,17 +2,15 @@
 
 ### Introduction
 
-Personally, I am a mechanical keyboards enthuthiastic, meaning I build my own mechanical keyboard; from buying the components to soldering them together. 
-
-I often introduces my friends into the world of mechanical keyboards. But I have found out that picking the first mechanical keyboard to invest in can be a daunting task. 
-
-There are so many choices, so many information to digest in order to find the perfect one. That is why I have chosen [mechanicalkeyboards.com](https://mechanicalkeyboards.com/shop/) as the website to scrap in order to obtain all the products they have to offer. So that I can build something with the data and make a keyboard picker from the information I scraped.
+I am a mechanical keyboard enthusiastic and I often introduces mechanical keyboards to my friends. However, the mechanical keyboard market is so diverse and finding the perfect keyboard just for the person is quite a daunting task. So I thought, why don’t I find a place with all kinds of keyboards available, use my knowledge on mechanical keyboards, categorize them and make a keyboard picker/recommendation system?
 
 ### Scraping the data
 
-Since mechanicalkeyboards.com uses minimal AJAX, I chose scrapy in Python as the tool to scrap the website.
+I chose [mechanicalkeyboards.com](https://mechanicalkeyboards.com/shop/) as the website to scrape. Based in Tennessee, “mechanicalkeyboards.com” is one of the largest mechanical keyboard vendors in the United States. It offers not only pre-built complete keyboards, but also parts and accessories for mechanical keyboards.
 
-I collected 797 observations from the online shop site with their:
+“Mechanicalkeyboards.com” has a simple and efficient architecture. Since it does not use REST API to retrieve the product listings, I decided to use Scrapy in Python to scrape the website.
+I collected 797 listings from the online shop, with their:
+
 - product name
 - brand
 - model
